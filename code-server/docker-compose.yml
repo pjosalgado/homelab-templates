@@ -1,0 +1,26 @@
+version: "3.3"
+
+services:
+  code-server:
+    image: linuxserver/code-server
+    container_name: code-server
+    hostname: code-server
+    domainname: ${MY_DOMAINNAME}
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+      - PASSWORD=${MY_PASSWORD}
+      - SUDO_PASSWORD=${MY_PASSWORD}
+      - PROXY_DOMAIN=code-server.${MY_DOMAINNAME}
+    volumes:
+      - ${MY_SHARED_FOLDER}/CodeServer/Config:/config
+      - ${MY_SHARED_FOLDER}/CodeServer/Code:/code
+    ports:
+      - 8443:8443
+    restart: unless-stopped
+    networks:
+      - code-network
+
+networks:
+  code-network:

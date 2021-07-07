@@ -1,0 +1,29 @@
+version: "3.3"
+
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:14.0.1-ce.0
+    container_name: gitlab
+    hostname: gitlab
+    domainname: ${MY_DOMAINNAME}
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        gitlab_rails['initial_root_password'] = '${GITLAB_PASSWORD}'
+    networks:
+      - gitlab_network
+    ports:
+      - 8080:80
+      - 8443:443
+      - "2022:22"
+    volumes:
+      - gitlab_config:/etc/gitlab
+      - gitlab_data:/var/opt/gitlab
+    restart: unless-stopped
+
+networks:
+  gitlab_network:
+    driver: bridge
+
+volumes:
+  gitlab_config:
+  gitlab_data:

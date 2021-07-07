@@ -1,0 +1,266 @@
+version: "2"
+
+services:
+  # emby:
+  #   image: ghcr.io/linuxserver/emby:arm32v7-4.5.4.0-ls79
+  #   container_name: emby
+  #   network_mode: host
+  #   hostname: emby
+  #   domainname: ${MY_DOMAINNAME}
+  #   environment:
+  #     - PUID=998
+  #     - PGID=100
+  #     - TZ=America/Sao_Paulo
+  #   volumes:
+  #     - ${MY_SHARED_FOLDER}/Config/Emby:/config
+  #     - ${MY_SHARED_FOLDER}/Media:/data/media
+  #   devices:
+  #     - /dev/vchiq:/dev/vchiq
+  #     - /dev/video10:/dev/video10
+  #     - /dev/video11:/dev/video11
+  #     - /dev/video12:/dev/video12
+  #   restart: unless-stopped
+
+  # embystat:
+  #   image: ghcr.io/linuxserver/embystat:arm32v7-0.2.0-beta.24-ls58
+  #   container_name: embystat
+  #   hostname: embystat
+  #   domainname: ${MY_DOMAINNAME}
+  #   environment:
+  #     - PUID=998
+  #     - PGID=100
+  #     - TZ=America/Sao_Paulo
+  #   volumes:
+  #     - ${MY_SHARED_FOLDER}/Config/EmbyStat:/config
+  #   ports:
+  #     - 6555:6555
+  #   restart: unless-stopped
+
+  plex:
+    image: ghcr.io/linuxserver/plex:arm32v7-1.22.1.4275-48e10484b-ls39
+    container_name: plex
+    network_mode: host
+    hostname: plex
+    domainname: ${MY_DOMAINNAME}
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/Sao_Paulo
+      - VERSION=docker
+      - PLEX_CLAIM=${MY_PLEX_CLAIM}
+    volumes:
+      - ${MY_SHARED_FOLDER}/Config/Plex:/config
+      - ${MY_SHARED_FOLDER}/Media:/data
+    restart: unless-stopped
+
+  tautulli:
+    image: ghcr.io/linuxserver/tautulli:arm32v7-v2.6.10-ls5
+    container_name: tautulli
+    hostname: tautulli
+    domainname: ${MY_DOMAINNAME}
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ${MY_SHARED_FOLDER}/Config/Tautulli:/config
+    ports:
+      - 8182:8181
+    restart: unless-stopped
+
+  jellyfin:
+    image: ghcr.io/linuxserver/jellyfin:arm32v7-10.7.1-1-ls103
+    container_name: jellyfin
+    hostname: jellyfin
+    domainname: ${MY_DOMAINNAME}
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/Sao_Paulo
+      - JELLYFIN_PublishedServerUrl=jellyfin.${MY_DOMAINNAME}
+    volumes:
+      - ${MY_SHARED_FOLDER}/Config/Jellyfin:/config
+      - ${MY_SHARED_FOLDER}/Media:/data
+      - /opt/vc/lib:/opt/vc/lib
+    ports:
+      - 8097:8096
+      - 8920:8920
+      - 7359:7359/udp
+      - 1900:1900/udp
+    devices:
+      - /dev/vchiq:/dev/vchiq
+      - /dev/video10:/dev/video10
+      - /dev/video11:/dev/video11
+      - /dev/video12:/dev/video12
+    restart: unless-stopped
+
+  jackett:
+    image: ghcr.io/linuxserver/jackett:arm32v7-v0.17.841-ls26
+    container_name: jackett
+    hostname: jackett
+    domainname: ${MY_DOMAINNAME}
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ${MY_SHARED_FOLDER}/Config/Jackett:/config
+      - ${MY_SHARED_FOLDER}/Torrents:/downloads
+    ports:
+      - 9117:9117
+    restart: unless-stopped
+
+  qbittorrent:
+    image: ghcr.io/linuxserver/qbittorrent:arm32v7-14.3.4.99202104031018-7348-2b6baa609ubuntu20.04.1-ls125
+    container_name: qbittorrent
+    hostname: qbittorrent
+    domainname: ${MY_DOMAINNAME}
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/Sao_Paulo
+      - WEBUI_PORT=5000
+    volumes:
+      - ${MY_SHARED_FOLDER}/Config/Qbittorrent:/config
+      - ${MY_SHARED_FOLDER}/Torrents:/downloads
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+      - 5000:5000
+    restart: unless-stopped
+
+  # sabnzbd:
+  #   image: ghcr.io/linuxserver/sabnzbd:arm32v7-3.2.1-ls23
+  #   container_name: sabnzbd
+  #   hostname: sabnzbd
+  #   domainname: ${MY_DOMAINNAME}
+  #   environment:
+  #     - PUID=998
+  #     - PGID=100
+  #     - TZ=America/Sao_Paulo
+  #   volumes:
+  #     - ${MY_SHARED_FOLDER}/Config/Sabnzbd:/config
+  #     - ${MY_SHARED_FOLDER}/Downloads:/downloads
+  #     - ${MY_SHARED_FOLDER}/Downloads/Incomplete:/incomplete-downloads
+  #   ports:
+  #     - 8181:8080
+  #     - 9191:9090
+  #   restart: unless-stopped
+
+  radarr:
+    image: ghcr.io/linuxserver/radarr:arm32v7-3.0.2.4552-ls97
+    container_name: radarr
+    hostname: radarr
+    domainname: ${MY_DOMAINNAME}
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ${MY_SHARED_FOLDER}/Config/Radarr:/config
+      - ${MY_SHARED_FOLDER}/Media/Movies:/movies
+      - ${MY_SHARED_FOLDER}/Media/ComedyShows:/comedyshows
+      - ${MY_SHARED_FOLDER}/Torrents:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+  sonarr:
+    image: ghcr.io/linuxserver/sonarr:arm32v7-3.0.6.1196-ls100
+    container_name: sonarr
+    hostname: sonarr
+    domainname: ${MY_DOMAINNAME}
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ${MY_SHARED_FOLDER}/Config/Sonarr:/config
+      - ${MY_SHARED_FOLDER}/Media/TvShows:/tv
+      - ${MY_SHARED_FOLDER}/Media/Animes:/animes
+      - ${MY_SHARED_FOLDER}/Torrents:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  # lidarr:
+  #   image: ghcr.io/linuxserver/lidarr:arm32v7-0.7.2.1878-ls43
+  #   container_name: lidarr
+  #   hostname: lidarr
+  #   domainname: ${MY_DOMAINNAME}
+  #   environment:
+  #     - PUID=998
+  #     - PGID=100
+  #     - TZ=America/Sao_Paulo
+  #   volumes:
+  #     - ${MY_SHARED_FOLDER}/Config/Lidarr:/config
+  #     - ${MY_SHARED_FOLDER}/Media/Music:/music
+  #     - ${MY_SHARED_FOLDER}/Torrents:/downloads
+  #   ports:
+  #     - 8686:8686
+  #   restart: unless-stopped
+
+  bazarr:
+    image: ghcr.io/linuxserver/bazarr:arm32v7-v0.9.3-ls109
+    container_name: bazarr
+    hostname: bazarr
+    domainname: ${MY_DOMAINNAME}
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ${MY_SHARED_FOLDER}/Config/Bazarr:/config
+      - ${MY_SHARED_FOLDER}/Media/Movies:/movies
+      - ${MY_SHARED_FOLDER}/Media/TvShows:/tv
+      - ${MY_SHARED_FOLDER}/Media/Animes:/animes
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+
+  # overseerr:
+  #   image: hotio/overseerr:release-1.22.0
+  #   container_name: overseerr
+  #   hostname: overseerr
+  #   domainname: ${MY_DOMAINNAME}
+  #   environment:
+  #     - PUID=998
+  #     - PGID=100
+  #     - TZ=America/Sao_Paulo
+  #   volumes:
+  #     - ${MY_SHARED_FOLDER}/Config/Overseerr:/config
+  #   ports:
+  #     - 5055:5055
+  #   restart: unless-stopped
+
+  # requestrr:
+  #   image: ghcr.io/linuxserver/requestrr:arm32v7-V1.0.17-ls4
+  #   container_name: requestrr
+  #   hostname: requestrr
+  #   domainname: ${MY_DOMAINNAME}
+  #   environment:
+  #     - PUID=998
+  #     - PGID=100
+  #     - TZ=America/Sao_Paulo
+  #   volumes:
+  #     - ${MY_SHARED_FOLDER}/Config/Requestrr:/config
+  #   ports:
+  #     - 4545:4545
+  #   restart: unless-stopped
+
+  # organizr:
+  #   image: organizr/organizr:linux-arm-v7
+  #   container_name: organizr
+  #   hostname: organizr
+  #   domainname: ${MY_DOMAINNAME}
+  #   environment:
+  #     - PUID=998
+  #     - PGID=100
+  #     - TZ=America/Sao_Paulo
+  #     - fpm=true
+  #     - branch=v2-master
+  #   volumes:
+  #     - ${MY_SHARED_FOLDER}/Config/Organizr:/config
+  #   ports:
+  #     - 90:80
+  #   restart: unless-stopped
