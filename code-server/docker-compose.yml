@@ -2,25 +2,25 @@ version: "3.3"
 
 services:
   code-server:
-    image: linuxserver/code-server
+    image: linuxserver/code-server:${CODE_SERVER_VERSION}
     container_name: code-server
     hostname: code-server
-    domainname: ${MY_DOMAINNAME}
+    domainname: ${DOMAIN_NAME}
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${USER_PUID}
+      - PGID=${USER_PGID}
       - TZ=America/Sao_Paulo
-      - PASSWORD=${MY_PASSWORD}
-      - SUDO_PASSWORD=${MY_PASSWORD}
-      - PROXY_DOMAIN=code-server.${MY_DOMAINNAME}
+      - PASSWORD=${CODE_SERVER_PASSWORD}
+      - SUDO_PASSWORD=${CODE_SERVER_SUDO_PASSWORD}
+      - PROXY_DOMAIN=code-server.${DOMAIN_NAME}
     volumes:
-      - ${MY_SHARED_FOLDER}/CodeServer/Config:/config
-      - ${MY_SHARED_FOLDER}/CodeServer/Code:/code
+      - ${SHARED_FOLDER}/CodeServer/Config:/config
+      - ${PATH_TO_CODE}:/code
     ports:
       - 8443:8443
     restart: unless-stopped
     networks:
-      - code-network
+      - code-server-network
 
 networks:
-  code-network:
+  code-server-network:

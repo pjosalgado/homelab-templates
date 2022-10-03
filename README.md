@@ -1,1 +1,1 @@
-# my-homelab
+# homelab-templates

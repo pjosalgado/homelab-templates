@@ -2,12 +2,12 @@ version: "2"
 
 services:
   bitwarden:
-    image: bitwardenrs/server
+    image: bitwardenrs/server:${BITWARDEN_VERSION}
     container_name: bitwarden
     hostname: bitwarden
-    domainname: ${MY_DOMAINNAME}
+    domainname: ${DOMAIN_NAME}
     volumes:
-      - ${MY_SHARED_FOLDER}/bitwarden:/data
+      - ${SHARED_FOLDER}/Bitwarden/Data:/data
     ports:
-      - 8085:80
+      - 8080:80
     restart: unless-stopped

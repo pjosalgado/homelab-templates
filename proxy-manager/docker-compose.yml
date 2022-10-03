@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  mariadb:
+    image: jc21/mariadb-aria:${MARIADB_PROXY_MANAGER_VERSION}
+    container_name: mariadb-proxy-manager
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MARIADB_PROXY_MANAGER_ROOT_PASSWORD}
+      MYSQL_DATABASE: proxy-manager
+      MYSQL_USER: ${MARIADB_PROXY_MANAGER_USER}
+      MYSQL_PASSWORD: ${MARIADB_PROXY_MANAGER_PASSWORD}
+    volumes:
+      - ${SHARED_FOLDER}/ProxyManager/MariaDb-Data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - proxy-default
+
+  proxy-manager:
+    image: jc21/nginx-proxy-manager:${PROXY_MANAGER_VERSION}
+    container_name: proxy-manager
+    hostname: ${MACHINE_HOST_NAME}
+    domainname: ${DOMAIN_NAME}
+    ports:
+      - 80:80
+      - 443:443
+      - 81:81
+    environment:
+      DB_MYSQL_HOST: mariadb
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_NAME: proxy-manager
+      DB_MYSQL_USER: ${MARIADB_PROXY_MANAGER_USER}
+      DB_MYSQL_PASSWORD: ${MARIADB_PROXY_MANAGER_PASSWORD}
+    volumes:
+      - ${SHARED_FOLDER}/ProxyManager/ProxyManager-Data:/data
+      - ${SHARED_FOLDER}/ProxyManager/ProxyManager-LetsEncrypt:/etc/letsencrypt
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+    networks:
+      - proxy-default
+
+networks:
+  proxy-default:
+    external: true
