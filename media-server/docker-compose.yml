@@ -158,7 +158,7 @@ services:
       - INCOMING_PORT_ENV=8999
       - VPN_ENABLED=yes
       - LAN_NETWORK=${LAN_NETWORK_CIDR}
-      - NAME_SERVERS=8.8.8.8
+      - NAME_SERVERS=${DNS_IPS_COMMA_SEPARATED}
     ports:
       - 8080:8080
       - 8999:8999
