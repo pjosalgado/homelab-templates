@@ -122,26 +122,51 @@ services:
     dns:
       - ${DNS_SERVER_IP}
 
-  qbittorrent:
-    image: linuxserver/qbittorrent:${QBITTORRENT_VERSION}
-    container_name: qbittorrent
-    hostname: qbittorrent
+  # qbittorrent:
+  #   image: linuxserver/qbittorrent:${QBITTORRENT_VERSION}
+  #   container_name: qbittorrent
+  #   hostname: qbittorrent
+  #   domainname: ${DOMAIN_NAME}
+  #   environment:
+  #     - PUID=${USER_PUID}
+  #     - PGID=${USER_PGID}
+  #     - TZ=America/Sao_Paulo
+  #     - WEBUI_PORT=5000
+  #   volumes:
+  #     - ${SHARED_FOLDER}/QBittorrent/Config:/config
+  #     - ${PATH_TO_TORRENTS}:/downloads
+  #   ports:
+  #     - 6881:6881
+  #     - 6881:6881/udp
+  #     - 5000:5000
+  #   restart: unless-stopped
+  #   dns:
+  #     - ${DNS_SERVER_IP}
+
+  qbittorrent-vpn:
+    image: markusmcnugen/qbittorrentvpn
+    container_name: qbittorrent-vpn
+    hostname: qbittorrent-vpn
     domainname: ${DOMAIN_NAME}
+    privileged: true
     environment:
+      - VPN_USERNAME=${VPN_USERNAME}
+      - VPN_PASSWORD=${VPN_PASSWORD}
       - PUID=${USER_PUID}
       - PGID=${USER_PGID}
-      - TZ=America/Sao_Paulo
-      - WEBUI_PORT=5000
-    volumes:
-      - ${SHARED_FOLDER}/QBittorrent/Config:/config
-      - ${PATH_TO_TORRENTS}:/downloads
+      - WEBUI_PORT_ENV=8080
+      - INCOMING_PORT_ENV=8999
+      - VPN_ENABLED=yes
+      - LAN_NETWORK=${LAN_NETWORK_CIDR}
+      - NAME_SERVERS=8.8.8.8
     ports:
-      - 6881:6881
-      - 6881:6881/udp
-      - 5000:5000
+      - 8080:8080
+      - 8999:8999
+      - 8999:8999/udp
+    volumes:
+      - ${SHARED_FOLDER}/QBittorrent-VPN/Config:/config
+      - ${PATH_TO_TORRENTS}:/downloads
     restart: unless-stopped
-    dns:
-      - ${DNS_SERVER_IP}
 
   # sabnzbd:
   #   image: linuxserver/sabnzbd:${SABNZBD_VERSION}
