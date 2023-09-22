@@ -1,0 +1,61 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: istio-custom
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: default-gateway
+  namespace: istio-custom
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+      hosts:
+        - ${DOMAIN}
+        - "*.${DOMAIN}"
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: ${DOMAIN_IDENTIFIER}-tls-secret
+      hosts:
+        - ${DOMAIN}
+        - "*.${DOMAIN}"
+---
+# apiVersion: networking.istio.io/v1alpha3
+# kind: Gateway
+# metadata:
+#   name: echo-server-gateway
+#   namespace: istio-custom
+# spec:
+#   selector:
+#     istio: ingressgateway
+#   servers:
+#     - port:
+#         number: 80
+#         name: http
+#         protocol: HTTP
+#       tls:
+#         httpsRedirect: true
+#       hosts:
+#         - echo-server.${DOMAIN}
+#     - port:
+#         number: 443
+#         name: https
+#         protocol: HTTPS
+#       tls:
+#         mode: SIMPLE
+#         credentialName: echo-server-${DOMAIN_IDENTIFIER}-tls-secret
+#       hosts:
+#         - echo-server.${DOMAIN}

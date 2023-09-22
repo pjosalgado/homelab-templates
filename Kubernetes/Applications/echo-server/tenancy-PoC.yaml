@@ -1,0 +1,60 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: tenant1-tenancy-poc-virtualservice
+  namespace: testing
+spec:
+  hosts:
+    - tenant1.${DOMAIN}
+  gateways:
+    - istio-custom/default-gateway
+  http:
+    - route:
+        - destination:
+            host: echo-server-service
+          headers:
+            request:
+              add:
+                X-Forwarded-TenantId: tenant1
+          weight: 100
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: tenant2-tenancy-poc-virtualservice
+  namespace: testing
+spec:
+  hosts:
+    - tenant2.${DOMAIN}
+  gateways:
+    - istio-custom/default-gateway
+  http:
+    - route:
+        - destination:
+            host: echo-server-service
+          headers:
+            request:
+              add:
+                X-Forwarded-TenantId: tenant2
+          weight: 100
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: tenant3-tenancy-poc-virtualservice
+  namespace: testing
+spec:
+  hosts:
+    - tenant3.${DOMAIN}
+  gateways:
+    - istio-custom/default-gateway
+  http:
+    - route:
+        - destination:
+            host: echo-server-service
+          headers:
+            request:
+              add:
+                X-Forwarded-TenantId: tenant3
+          weight: 100

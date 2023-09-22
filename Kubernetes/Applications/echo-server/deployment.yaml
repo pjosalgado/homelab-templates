@@ -1,0 +1,67 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: testing
+  labels:
+    istio-injection: enabled
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-server-deployment
+  namespace: testing
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: echo-server-deployment
+  template:
+    metadata:
+      labels:
+        app: echo-server-deployment
+        version: 0.3.5
+    spec:
+      containers:
+        - name: echo-server
+          image: jmalloc/echo-server:0.3.5
+          ports:
+            - name: http-port
+              containerPort: 8080
+          resources:
+            requests:
+              memory: "40Mi"
+              cpu: "0.010"
+            limits:
+              memory: "50Mi"
+              cpu: "0.020"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-server-service
+  namespace: testing
+spec:
+  ports:
+    - name: http-port
+      port: 8080
+      targetPort: http-port
+      protocol: TCP
+  selector:
+    app: echo-server-deployment
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: echo-server-virtualservice
+  namespace: testing
+spec:
+  hosts:
+    - echo-server.${DOMAIN}
+  gateways:
+    - istio-custom/default-gateway
+  http:
+    - route:
+        - destination:
+            host: echo-server-service
+          weight: 100

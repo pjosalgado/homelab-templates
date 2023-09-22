@@ -1,0 +1,14 @@
+version: "3.3"
+
+services:
+  jupyter-notebook:
+    image: andresvidal/jupyter-armv7l
+    container_name: jupyter-notebook
+    hostname: jupyter-notebook
+    domainname: ${DOMAIN_NAME}
+    restart: unless-stopped
+    command: --NotebookApp.token='${JUPYTER_NOTEBOOK_PASSWORD}'
+    ports:
+      - "8888:8888"
+    volumes:
+      - "${SHARED_FOLDER}/JupyterNotebook/Notebooks:/notebooks"
