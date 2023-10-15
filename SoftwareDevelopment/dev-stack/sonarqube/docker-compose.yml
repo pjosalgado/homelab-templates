@@ -3,9 +3,9 @@ version: "3.3"
 services:
   sonarqube:
     container_name: sonarqube
-    image: sonarqube:${SONARQUBE_VERSION}
+    image: sonarqube:$SONARQUBE_VERSION
     hostname: sonarqube
-    domainname: ${DOMAIN_NAME}
+    domainname: $DOMAIN_NAME
     depends_on:
       - postgres
     ports:
@@ -15,23 +15,23 @@ services:
     environment:
       SONAR_JDBC_URL: jdbc:postgresql://postgres:5432/sonar
       SONAR_JDBC_USERNAME: sonar
-      SONAR_JDBC_PASSWORD: ${POSTGRES_SONARQUBE_PASSWORD}
+      SONAR_JDBC_PASSWORD: $POSTGRES_SONARQUBE_PASSWORD
     volumes:
-      - ${SHARED_FOLDER}/SonarQube/Data:/opt/sonarqube/data
-      - ${SHARED_FOLDER}/SonarQube/Extensions:/opt/sonarqube/extensions
+      - $SHARED_FOLDER/SonarQube/Data:/opt/sonarqube/data
+      - $SHARED_FOLDER/SonarQube/Extensions:/opt/sonarqube/extensions
     restart: unless-stopped
 
   postgres:
-    image: postgres:${POSTGRES_SONARQUBE_VERSION}
+    image: postgres:$POSTGRES_SONARQUBE_VERSION
     container_name: postgres-sonarqube
     networks:
       - dev
     environment:
       POSTGRES_USER: sonar
-      POSTGRES_PASSWORD: ${POSTGRES_SONARQUBE_PASSWORD}
+      POSTGRES_PASSWORD: $POSTGRES_SONARQUBE_PASSWORD
     volumes:
-      - ${SHARED_FOLDER}/SonarQube/Postgres/Config:/var/lib/postgresql
-      - ${SHARED_FOLDER}/SonarQube/Postgres/Data:/var/lib/postgresql/data
+      - $SHARED_FOLDER/SonarQube/Postgres/Config:/var/lib/postgresql
+      - $SHARED_FOLDER/SonarQube/Postgres/Data:/var/lib/postgresql/data
     restart: unless-stopped
 
 networks:

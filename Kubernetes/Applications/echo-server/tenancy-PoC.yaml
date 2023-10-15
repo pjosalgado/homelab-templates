@@ -6,7 +6,7 @@ metadata:
   namespace: testing
 spec:
   hosts:
-    - tenant1.${DOMAIN}
+    - tenant1.$DOMAIN
   gateways:
     - istio-custom/default-gateway
   http:
@@ -26,7 +26,7 @@ metadata:
   namespace: testing
 spec:
   hosts:
-    - tenant2.${DOMAIN}
+    - tenant2.$DOMAIN
   gateways:
     - istio-custom/default-gateway
   http:
@@ -46,7 +46,7 @@ metadata:
   namespace: testing
 spec:
   hosts:
-    - tenant3.${DOMAIN}
+    - tenant3.$DOMAIN
   gateways:
     - istio-custom/default-gateway
   http:

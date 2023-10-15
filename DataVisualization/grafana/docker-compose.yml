@@ -2,10 +2,10 @@ version: "3"
 
 services:
   grafana:
-    image: grafana/grafana:${GRAFANA_VERSION}
+    image: grafana/grafana:$GRAFANA_VERSION
     container_name: grafana
     hostname: grafana
-    domainname: ${DOMAIN_NAME}
+    domainname: $DOMAIN_NAME
     restart: unless-stopped
     ports:
       - "3000:3000"

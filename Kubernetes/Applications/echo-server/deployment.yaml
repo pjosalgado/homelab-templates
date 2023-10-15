@@ -57,7 +57,7 @@ metadata:
   namespace: testing
 spec:
   hosts:
-    - echo-server.${DOMAIN}
+    - echo-server.$DOMAIN
   gateways:
     - istio-custom/default-gateway
   http:

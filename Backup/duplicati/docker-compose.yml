@@ -2,22 +2,22 @@ version: "2"
 
 services:
   duplicati:
-    image: linuxserver/duplicati:${DUPLICATI_VERSION}
+    image: linuxserver/duplicati:$DUPLICATI_VERSION
     container_name: duplicati
-    hostname: duplicati-${MACHINE_HOST_NAME}
-    domainname: ${DOMAIN_NAME}
+    hostname: duplicati-$MACHINE_HOST_NAME
+    domainname: $DOMAIN_NAME
     environment:
-      - PUID=${USER_PUID}
-      - PGID=${USER_PGID}
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
       - TZ=America/Sao_Paulo
     volumes:
-      - ${SHARED_FOLDER}/Duplicati/Config:/config
-      - ${SHARED_FOLDER}/Duplicati/Backups:/backups
-      - ${PATH_1_TO_BACKUP}:/source1
-      - ${PATH_2_TO_BACKUP}:/source2
+      - $SHARED_FOLDER/Duplicati/Config:/config
+      - $SHARED_FOLDER/Duplicati/Backups:/backups
+      - $PATH_1_TO_BACKUP:/source1
+      - $PATH_2_TO_BACKUP:/source2
     ports:
       - 8200:8200
     restart: unless-stopped
     dns:
-      - ${DNS_1_SERVER_IP}
-      - ${DNS_2_SERVER_IP}
+      - $DNS_1_SERVER_IP
+      - $DNS_2_SERVER_IP

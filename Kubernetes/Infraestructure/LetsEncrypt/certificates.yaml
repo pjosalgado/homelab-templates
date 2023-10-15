@@ -2,16 +2,16 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ${DOMAIN_IDENTIFIER}-certificate
+  name: $DOMAIN_IDENTIFIER-certificate
   namespace: istio-system
 spec:
-  secretName: ${DOMAIN_IDENTIFIER}-tls-secret
+  secretName: $DOMAIN_IDENTIFIER-tls-secret
   duration: 2160h # 90 days
   renewBefore: 360h # 15 days
-  commonName: ${DOMAIN}
+  commonName: $DOMAIN
   dnsNames:
-    - ${DOMAIN}
-    - "*.${DOMAIN}"
+    - $DOMAIN
+    - "*.$DOMAIN"
   issuerRef:
     name: letsencrypt-prod
     kind: Issuer
@@ -19,15 +19,15 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: echo-server-${DOMAIN_IDENTIFIER}-certificate
+  name: echo-server-$DOMAIN_IDENTIFIER-certificate
   namespace: istio-system
 spec:
-  secretName: echo-server-${DOMAIN_IDENTIFIER}-tls-secret
+  secretName: echo-server-$DOMAIN_IDENTIFIER-tls-secret
   duration: 2160h # 90 days
   renewBefore: 360h # 15 days
-  commonName: echo-server.${DOMAIN}
+  commonName: echo-server.$DOMAIN
   dnsNames:
-    - echo-server.${DOMAIN}
+    - echo-server.$DOMAIN
   issuerRef:
     name: letsencrypt-prod
     kind: Issuer

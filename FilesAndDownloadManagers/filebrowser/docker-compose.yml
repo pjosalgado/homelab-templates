@@ -2,16 +2,16 @@ version: "3"
 
 services:
   filebrowser:
-    image: filebrowser/filebrowser:${FILE_BROWSER_VERSION}
+    image: filebrowser/filebrowser:$FILE_BROWSER_VERSION
     container_name: filebrowser
-    hostname: filebrowser-${MACHINE_HOST_NAME}
-    domainname: ${DOMAIN_NAME}
-    user: ${USER_PUID}:${USER_PGID}
+    hostname: filebrowser-$MACHINE_HOST_NAME
+    domainname: $DOMAIN_NAME
+    user: $USER_PUID:$USER_PGID
     ports:
       - 8080:80
     volumes:
-      - ${SHARED_FOLDER}/FileBrowser/database.db:/database.db
-      - ${SHARED_FOLDER}:/srv
+      - $SHARED_FOLDER/FileBrowser/database.db:/database.db
+      - $SHARED_FOLDER:/srv
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true

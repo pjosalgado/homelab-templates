@@ -20,18 +20,18 @@ spec:
       tls:
         httpsRedirect: true
       hosts:
-        - ${DOMAIN}
-        - "*.${DOMAIN}"
+        - $DOMAIN
+        - "*.$DOMAIN"
     - port:
         number: 443
         name: https
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: ${DOMAIN_IDENTIFIER}-tls-secret
+        credentialName: $DOMAIN_IDENTIFIER-tls-secret
       hosts:
-        - ${DOMAIN}
-        - "*.${DOMAIN}"
+        - $DOMAIN
+        - "*.$DOMAIN"
 ---
 # apiVersion: networking.istio.io/v1alpha3
 # kind: Gateway
@@ -49,13 +49,13 @@ spec:
 #       tls:
 #         httpsRedirect: true
 #       hosts:
-#         - echo-server.${DOMAIN}
+#         - echo-server.$DOMAIN
 #     - port:
 #         number: 443
 #         name: https
 #         protocol: HTTPS
 #       tls:
 #         mode: SIMPLE
-#         credentialName: echo-server-${DOMAIN_IDENTIFIER}-tls-secret
+#         credentialName: echo-server-$DOMAIN_IDENTIFIER-tls-secret
 #       hosts:
-#         - echo-server.${DOMAIN}
+#         - echo-server.$DOMAIN

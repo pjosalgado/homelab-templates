@@ -2,56 +2,56 @@ version: "2"
 
 services:
   plex:
-    image: linuxserver/plex:${PLEX_VERSION}
+    image: linuxserver/plex:$PLEX_VERSION
     container_name: plex
     hostname: plex
-    domainname: ${DOMAIN_NAME}
+    domainname: $DOMAIN_NAME
     network_mode: host
     environment:
-      - PUID=${USER_PUID}
-      - PGID=${USER_PGID}
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
       - TZ=America/Sao_Paulo
       - VERSION=docker
-      - PLEX_CLAIM=${PLEX_CLAIM_TOKEN}
+      - PLEX_CLAIM=$PLEX_CLAIM_TOKEN
     volumes:
-      - ${SHARED_FOLDER}/Plex/Config:/config
-      - ${SHARED_FOLDER}/Media:/media
+      - $SHARED_FOLDER/Plex/Config:/config
+      - $SHARED_FOLDER/Media:/media
     restart: unless-stopped
     dns:
-      - ${DNS_1_SERVER_IP}
-      - ${DNS_2_SERVER_IP}
+      - $DNS_1_SERVER_IP
+      - $DNS_2_SERVER_IP
 
   tautulli:
-    image: linuxserver/tautulli:${TAUTULLI_VERSION}
+    image: linuxserver/tautulli:$TAUTULLI_VERSION
     container_name: tautulli
     hostname: tautulli
-    domainname: ${DOMAIN_NAME}
+    domainname: $DOMAIN_NAME
     environment:
-      - PUID=${USER_PUID}
-      - PGID=${USER_PGID}
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
       - TZ=America/Sao_Paulo
     volumes:
-      - ${SHARED_FOLDER}/Tautulli/Config:/config
+      - $SHARED_FOLDER/Tautulli/Config:/config
     ports:
       - 8181:8181
     restart: unless-stopped
     dns:
-      - ${DNS_1_SERVER_IP}
-      - ${DNS_2_SERVER_IP}
+      - $DNS_1_SERVER_IP
+      - $DNS_2_SERVER_IP
 
   # emby:
-  #   image: linuxserver/emby:${EMBY_VERSION}
+  #   image: linuxserver/emby:$EMBY_VERSION
   #   container_name: emby
   #   network_mode: host
   #   hostname: emby
-  #   domainname: ${DOMAIN_NAME}
+  #   domainname: $DOMAIN_NAME
   #   environment:
-  #     - PUID=${USER_PUID}
-  #     - PGID=${USER_PGID}
+  #     - PUID=$USER_PUID
+  #     - PGID=$USER_PGID
   #     - TZ=America/Sao_Paulo
   #   volumes:
-  #     - ${SHARED_FOLDER}/Emby/Config:/config
-  #     - ${SHARED_FOLDER}/Media:/media
+  #     - $SHARED_FOLDER/Emby/Config:/config
+  #     - $SHARED_FOLDER/Media:/media
   #   devices:
   #     - /dev/vchiq:/dev/vchiq
   #     - /dev/video10:/dev/video10
@@ -59,40 +59,40 @@ services:
   #     - /dev/video12:/dev/video12
   #   restart: unless-stopped
   #   dns:
-  #     - ${DNS_1_SERVER_IP}
-  #     - ${DNS_2_SERVER_IP}
+  #     - $DNS_1_SERVER_IP
+  #     - $DNS_2_SERVER_IP
 
   # embystat:
-  #   image: linuxserver/embystat:${EMBYSTAT_VERSION}
+  #   image: linuxserver/embystat:$EMBYSTAT_VERSION
   #   container_name: embystat
   #   hostname: embystat
-  #   domainname: ${DOMAIN_NAME}
+  #   domainname: $DOMAIN_NAME
   #   environment:
-  #     - PUID=${USER_PUID}
-  #     - PGID=${USER_PGID}
+  #     - PUID=$USER_PUID
+  #     - PGID=$USER_PGID
   #     - TZ=America/Sao_Paulo
   #   volumes:
-  #     - ${SHARED_FOLDER}/EmbyStat/Config:/config
+  #     - $SHARED_FOLDER/EmbyStat/Config:/config
   #   ports:
   #     - 6555:6555
   #   restart: unless-stopped
   #   dns:
-  #     - ${DNS_1_SERVER_IP}
-  #     - ${DNS_2_SERVER_IP}
+  #     - $DNS_1_SERVER_IP
+  #     - $DNS_2_SERVER_IP
 
   # jellyfin:
-  #   image: linuxserver/jellyfin:${JELLYFIN_VERSION}
+  #   image: linuxserver/jellyfin:$JELLYFIN_VERSION
   #   container_name: jellyfin
   #   hostname: jellyfin
-  #   domainname: ${DOMAIN_NAME}
+  #   domainname: $DOMAIN_NAME
   #   environment:
-  #     - PUID=${USER_PUID}
-  #     - PGID=${USER_PGID}
+  #     - PUID=$USER_PUID
+  #     - PGID=$USER_PGID
   #     - TZ=America/Sao_Paulo
-  #     - JELLYFIN_PublishedServerUrl=jellyfin.${DOMAIN_NAME}
+  #     - JELLYFIN_PublishedServerUrl=jellyfin.$DOMAIN_NAME
   #   volumes:
-  #     - ${SHARED_FOLDER}/Jellyfin/Config:/config
-  #     - ${SHARED_FOLDER}/Media:/media
+  #     - $SHARED_FOLDER/Jellyfin/Config:/config
+  #     - $SHARED_FOLDER/Media:/media
   #     - /opt/vc/lib:/opt/vc/lib
   #   ports:
   #     - 8096:8096
@@ -106,228 +106,228 @@ services:
   #     - /dev/video12:/dev/video12
   #   restart: unless-stopped
   #   dns:
-  #     - ${DNS_1_SERVER_IP}
-  #     - ${DNS_2_SERVER_IP}
+  #     - $DNS_1_SERVER_IP
+  #     - $DNS_2_SERVER_IP
 
   jackett:
-    image: linuxserver/jackett:${JACKETT_VERSION}
+    image: linuxserver/jackett:$JACKETT_VERSION
     container_name: jackett
     hostname: jackett
-    domainname: ${DOMAIN_NAME}
+    domainname: $DOMAIN_NAME
     environment:
-      - PUID=${USER_PUID}
-      - PGID=${USER_PGID}
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
       - TZ=America/Sao_Paulo
     volumes:
-      - ${SHARED_FOLDER}/Jackett/Config:/config
-      - ${SHARED_FOLDER}/Torrents:/downloads
+      - $SHARED_FOLDER/Jackett/Config:/config
+      - $SHARED_FOLDER/Torrents:/downloads
     ports:
       - 9117:9117
     restart: unless-stopped
     dns:
-      - ${DNS_1_SERVER_IP}
-      - ${DNS_2_SERVER_IP}
+      - $DNS_1_SERVER_IP
+      - $DNS_2_SERVER_IP
 
   # qbittorrent:
-  #   image: linuxserver/qbittorrent:${QBITTORRENT_VERSION}
+  #   image: linuxserver/qbittorrent:$QBITTORRENT_VERSION
   #   container_name: qbittorrent
   #   hostname: qbittorrent
-  #   domainname: ${DOMAIN_NAME}
+  #   domainname: $DOMAIN_NAME
   #   environment:
-  #     - PUID=${USER_PUID}
-  #     - PGID=${USER_PGID}
+  #     - PUID=$USER_PUID
+  #     - PGID=$USER_PGID
   #     - TZ=America/Sao_Paulo
   #     - WEBUI_PORT=5000
   #   volumes:
-  #     - ${SHARED_FOLDER}/QBittorrent/Config:/config
-  #     - ${SHARED_FOLDER}/Torrents:/downloads
+  #     - $SHARED_FOLDER/QBittorrent/Config:/config
+  #     - $SHARED_FOLDER/Torrents:/downloads
   #   ports:
   #     - 6881:6881
   #     - 6881:6881/udp
   #     - 5000:5000
   #   restart: unless-stopped
   #   dns:
-  #     - ${DNS_1_SERVER_IP}
-  #     - ${DNS_2_SERVER_IP}
+  #     - $DNS_1_SERVER_IP
+  #     - $DNS_2_SERVER_IP
 
   qbittorrent-vpn:
     image: markusmcnugen/qbittorrentvpn
     container_name: qbittorrent-vpn
     hostname: qbittorrent-vpn
-    domainname: ${DOMAIN_NAME}
+    domainname: $DOMAIN_NAME
     privileged: true
     environment:
-      - VPN_USERNAME=${VPN_USERNAME}
-      - VPN_PASSWORD=${VPN_PASSWORD}
-      - PUID=${USER_PUID}
-      - PGID=${USER_PGID}
+      - VPN_USERNAME=$VPN_USERNAME
+      - VPN_PASSWORD=$VPN_PASSWORD
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
       - WEBUI_PORT_ENV=8080
       - INCOMING_PORT_ENV=8999
       - VPN_ENABLED=yes
-      - LAN_NETWORK=${LAN_NETWORK_CIDR}
-      - NAME_SERVERS=${DNS_IPS_COMMA_SEPARATED}
+      - LAN_NETWORK=$LAN_NETWORK_CIDR
+      - NAME_SERVERS=$DNS_IPS_COMMA_SEPARATED
     ports:
       - 8080:8080
       - 8999:8999
       - 8999:8999/udp
     volumes:
-      - ${SHARED_FOLDER}/QBittorrentVpn/Config:/config
-      - ${SHARED_FOLDER}/Torrents:/downloads
+      - $SHARED_FOLDER/QBittorrentVpn/Config:/config
+      - $SHARED_FOLDER/Torrents:/downloads
     restart: unless-stopped
 
   # sabnzbd:
-  #   image: linuxserver/sabnzbd:${SABNZBD_VERSION}
+  #   image: linuxserver/sabnzbd:$SABNZBD_VERSION
   #   container_name: sabnzbd
   #   hostname: sabnzbd
-  #   domainname: ${DOMAIN_NAME}
+  #   domainname: $DOMAIN_NAME
   #   environment:
-  #     - PUID=${USER_PUID}
-  #     - PGID=${USER_PGID}
+  #     - PUID=$USER_PUID
+  #     - PGID=$USER_PGID
   #     - TZ=America/Sao_Paulo
   #   volumes:
-  #     - ${SHARED_FOLDER}/Sabnzbd/Config:/config
-  #     - ${SHARED_FOLDER}/Usenet:/downloads
-  #     - ${SHARED_FOLDER}/Usenet/Incomplete:/incomplete-downloads
+  #     - $SHARED_FOLDER/Sabnzbd/Config:/config
+  #     - $SHARED_FOLDER/Usenet:/downloads
+  #     - $SHARED_FOLDER/Usenet/Incomplete:/incomplete-downloads
   #   ports:
   #     - 8080:8080
   #     - 9090:9090
   #   restart: unless-stopped
   #   dns:
-  #     - ${DNS_1_SERVER_IP}
-  #     - ${DNS_2_SERVER_IP}
+  #     - $DNS_1_SERVER_IP
+  #     - $DNS_2_SERVER_IP
 
   radarr:
-    image: linuxserver/radarr:${RADARR_VERSION}
+    image: linuxserver/radarr:$RADARR_VERSION
     container_name: radarr
     hostname: radarr
-    domainname: ${DOMAIN_NAME}
+    domainname: $DOMAIN_NAME
     environment:
-      - PUID=${USER_PUID}
-      - PGID=${USER_PGID}
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
       - TZ=America/Sao_Paulo
     volumes:
-      - ${SHARED_FOLDER}/Radarr/Config:/config
-      - ${SHARED_FOLDER}/Torrents:/downloads
-      - ${SHARED_FOLDER}/Media/Movies:/movies
+      - $SHARED_FOLDER/Radarr/Config:/config
+      - $SHARED_FOLDER/Torrents:/downloads
+      - $SHARED_FOLDER/Media/Movies:/movies
     ports:
       - 7878:7878
     restart: unless-stopped
     dns:
-      - ${DNS_1_SERVER_IP}
-      - ${DNS_2_SERVER_IP}
+      - $DNS_1_SERVER_IP
+      - $DNS_2_SERVER_IP
 
   sonarr:
-    image: linuxserver/sonarr:${SONARR_VERSION}
+    image: linuxserver/sonarr:$SONARR_VERSION
     container_name: sonarr
     hostname: sonarr
-    domainname: ${DOMAIN_NAME}
+    domainname: $DOMAIN_NAME
     environment:
-      - PUID=${USER_PUID}
-      - PGID=${USER_PGID}
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
       - TZ=America/Sao_Paulo
     volumes:
-      - ${SHARED_FOLDER}/Sonarr/Config:/config
-      - ${SHARED_FOLDER}/Torrents:/downloads
-      - ${SHARED_FOLDER}/Media/TvShows:/tv
+      - $SHARED_FOLDER/Sonarr/Config:/config
+      - $SHARED_FOLDER/Torrents:/downloads
+      - $SHARED_FOLDER/Media/TvShows:/tv
     ports:
       - 8989:8989
     restart: unless-stopped
     dns:
-      - ${DNS_1_SERVER_IP}
-      - ${DNS_2_SERVER_IP}
+      - $DNS_1_SERVER_IP
+      - $DNS_2_SERVER_IP
 
   # lidarr:
-  #   image: linuxserver/lidarr:${LIDARR_VERSION}
+  #   image: linuxserver/lidarr:$LIDARR_VERSION
   #   container_name: lidarr
   #   hostname: lidarr
-  #   domainname: ${DOMAIN_NAME}
+  #   domainname: $DOMAIN_NAME
   #   environment:
-  #     - PUID=${USER_PUID}
-  #     - PGID=${USER_PGID}
+  #     - PUID=$USER_PUID
+  #     - PGID=$USER_PGID
   #     - TZ=America/Sao_Paulo
   #   volumes:
-  #     - ${SHARED_FOLDER}/Lidarr/Config:/config
-  #     - ${SHARED_FOLDER}/Torrents:/downloads
-  #     - ${SHARED_FOLDER}/Media/Music:/music
+  #     - $SHARED_FOLDER/Lidarr/Config:/config
+  #     - $SHARED_FOLDER/Torrents:/downloads
+  #     - $SHARED_FOLDER/Media/Music:/music
   #   ports:
   #     - 8686:8686
   #   restart: unless-stopped
   #   dns:
-  #     - ${DNS_1_SERVER_IP}
-  #     - ${DNS_2_SERVER_IP}
+  #     - $DNS_1_SERVER_IP
+  #     - $DNS_2_SERVER_IP
 
   bazarr:
-    image: linuxserver/bazarr:${BAZARR_VERSION}
+    image: linuxserver/bazarr:$BAZARR_VERSION
     container_name: bazarr
     hostname: bazarr
-    domainname: ${DOMAIN_NAME}
+    domainname: $DOMAIN_NAME
     environment:
-      - PUID=${USER_PUID}
-      - PGID=${USER_PGID}
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
       - TZ=America/Sao_Paulo
     volumes:
-      - ${SHARED_FOLDER}/Bazarr/Config:/config
-      - ${SHARED_FOLDER}/Media/Movies:/movies
-      - ${SHARED_FOLDER}/Media/TvShows:/tv
+      - $SHARED_FOLDER/Bazarr/Config:/config
+      - $SHARED_FOLDER/Media/Movies:/movies
+      - $SHARED_FOLDER/Media/TvShows:/tv
     ports:
       - 6767:6767
     restart: unless-stopped
     dns:
-      - ${DNS_1_SERVER_IP}
-      - ${DNS_2_SERVER_IP}
+      - $DNS_1_SERVER_IP
+      - $DNS_2_SERVER_IP
 
   overseerr:
-    image: hotio/overseerr:${OVERSEERR_VERSION}
+    image: hotio/overseerr:$OVERSEERR_VERSION
     container_name: overseerr
     hostname: overseerr
-    domainname: ${DOMAIN_NAME}
+    domainname: $DOMAIN_NAME
     environment:
-      - PUID=${USER_PUID}
-      - PGID=${USER_PGID}
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
       - TZ=America/Sao_Paulo
     volumes:
-      - ${SHARED_FOLDER}/Overseerr/Config:/config
+      - $SHARED_FOLDER/Overseerr/Config:/config
     ports:
       - 5055:5055
     restart: unless-stopped
     dns:
-      - ${DNS_1_SERVER_IP}
-      - ${DNS_2_SERVER_IP}
+      - $DNS_1_SERVER_IP
+      - $DNS_2_SERVER_IP
 
   requestrr:
-    image: linuxserver/requestrr:${REQUESTRR_VERSION}
+    image: linuxserver/requestrr:$REQUESTRR_VERSION
     container_name: requestrr
     hostname: requestrr
-    domainname: ${DOMAIN_NAME}
+    domainname: $DOMAIN_NAME
     environment:
-      - PUID=${USER_PUID}
-      - PGID=${USER_PGID}
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
       - TZ=America/Sao_Paulo
     volumes:
-      - ${SHARED_FOLDER}/Requestrr/Config:/config
+      - $SHARED_FOLDER/Requestrr/Config:/config
     ports:
       - 4545:4545
     restart: unless-stopped
     dns:
-      - ${DNS_1_SERVER_IP}
-      - ${DNS_2_SERVER_IP}
+      - $DNS_1_SERVER_IP
+      - $DNS_2_SERVER_IP
 
   # organizr:
-  #   image: organizr/organizr:${ORGANIZR_VERSION}
+  #   image: organizr/organizr:$ORGANIZR_VERSION
   #   container_name: organizr
   #   hostname: organizr
-  #   domainname: ${DOMAIN_NAME}
+  #   domainname: $DOMAIN_NAME
   #   environment:
-  #     - PUID=${USER_PUID}
-  #     - PGID=${USER_PGID}
+  #     - PUID=$USER_PUID
+  #     - PGID=$USER_PGID
   #     - TZ=America/Sao_Paulo
   #     - fpm=true
   #     - branch=v2-master
   #   volumes:
-  #     - ${SHARED_FOLDER}/Organizr/Config:/config
+  #     - $SHARED_FOLDER/Organizr/Config:/config
   #   ports:
   #     - 8080:80
   #   restart: unless-stopped
   #   dns:
-  #     - ${DNS_1_SERVER_IP}
-  #     - ${DNS_2_SERVER_IP}
+  #     - $DNS_1_SERVER_IP
+  #     - $DNS_2_SERVER_IP

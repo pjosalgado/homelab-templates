@@ -6,7 +6,7 @@ metadata:
   namespace: istio-system
 type: Opaque
 stringData:
-  api-token: ${CLOUDFLARE_API_TOKEN}
+  api-token: $CLOUDFLARE_API_TOKEN
 ---
 apiVersion: cert-manager.io/v1
 kind: Issuer
@@ -15,14 +15,14 @@ metadata:
   namespace: istio-system
 spec:
   acme:
-    email: ${MY_EMAIL}
+    email: $MY_EMAIL
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:
       - dns01:
           cloudflare:
-            email: ${MY_EMAIL}
+            email: $MY_EMAIL
             apiTokenSecretRef:
               name: cloudflare-api-token-secret
               key: api-token
