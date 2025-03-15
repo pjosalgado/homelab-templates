@@ -1,20 +1,22 @@
-version: "2"
-
 services:
   scrutiny:
     image: analogj/scrutiny:$SCRUTINY_VERSION
     container_name: scrutiny
-    hostname: scrutiny-$MACHINE_HOST_NAME
+    hostname: scrutiny
     domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    volumes:
+      - config:/opt/scrutiny/config
+      - influxdb:/opt/scrutiny/influxdb
+      - /run/udev:/run/udev:ro
+    ports:
+      - 8080:8080
     cap_add:
       - SYS_RAWIO
       - SYS_ADMIN
-    ports:
-      - 8080:8080
-    volumes:
-      - /run/udev:/run/udev:ro
-      - $SHARED_FOLDER/Scrutiny/Config:/opt/scrutiny/config
-      - $SHARED_FOLDER/Scrutiny/InfluxDb:/opt/scrutiny/influxdb
     devices:
       - /dev/sda:/dev/sda
-    restart: unless-stopped
+
+volumes:
+  config:
+  influxdb:

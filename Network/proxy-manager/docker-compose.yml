@@ -1,43 +1,46 @@
-version: "3"
-
 services:
   proxy-manager:
     image: jc21/nginx-proxy-manager:$PROXY_MANAGER_VERSION
     container_name: proxy-manager
     hostname: proxy-manager
     domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    environment:
+      DB_MYSQL_HOST: mariadb
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: $MARIADB_PROXY_MANAGER_USER
+      DB_MYSQL_PASSWORD: $MARIADB_PROXY_MANAGER_PASSWORD
+      DB_MYSQL_NAME: proxy-manager
+    volumes:
+      - proxy-manager-config:/data
+      - proxy-manager-letsencrypt:/etc/letsencrypt
     ports:
       - 80:80
       - 443:443
       - 81:81
-    environment:
-      DB_MYSQL_HOST: mariadb
-      DB_MYSQL_PORT: 3306
-      DB_MYSQL_NAME: proxy-manager
-      DB_MYSQL_USER: $MARIADB_PROXY_MANAGER_USER
-      DB_MYSQL_PASSWORD: $MARIADB_PROXY_MANAGER_PASSWORD
-    volumes:
-      - $SHARED_FOLDER/ProxyManager/Data:/data
-      - $SHARED_FOLDER/ProxyManager/LetsEncrypt:/etc/letsencrypt
     depends_on:
       - mariadb
-    restart: unless-stopped
     networks:
       - proxy-default
 
   mariadb:
     image: jc21/mariadb-aria:$MARIADB_PROXY_MANAGER_VERSION
     container_name: mariadb-proxy-manager
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: $MARIADB_PROXY_MANAGER_ROOT_PASSWORD
-      MYSQL_DATABASE: proxy-manager
       MYSQL_USER: $MARIADB_PROXY_MANAGER_USER
       MYSQL_PASSWORD: $MARIADB_PROXY_MANAGER_PASSWORD
+      MYSQL_DATABASE: proxy-manager
     volumes:
-      - $SHARED_FOLDER/ProxyManager/MariaDb/Data:/var/lib/mysql
-    restart: unless-stopped
+      - mariadb-data:/var/lib/mysql
     networks:
       - proxy-default
+
+volumes:
+  proxy-manager-config:
+  proxy-manager-letsencrypt:
+  mariadb-data:
 
 networks:
   proxy-default:

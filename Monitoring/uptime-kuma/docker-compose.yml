@@ -1,13 +1,14 @@
-version: "2.4"
-
 services:
   uptime-kuma:
-    container_name: uptime-kuma
     image: louislam/uptime-kuma:$UPTIME_KUMA_VERSION
+    container_name: uptime-kuma
     hostname: uptime-kuma
     domainname: $DOMAIN_NAME
-    volumes:
-      - $SHARED_FOLDER/UptimeKuma/Data:/app/data
     restart: unless-stopped
+    volumes:
+      - config:/app/data
     ports:
       - 3001:3001
+
+volumes:
+  config:

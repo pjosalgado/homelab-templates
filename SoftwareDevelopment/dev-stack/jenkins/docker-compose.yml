@@ -1,19 +1,20 @@
-version: "3.3"
-
 services:
   jenkins:
     image: jenkins/jenkins:$JENKINS_VERSION
     container_name: jenkins
     hostname: jenkins
     domainname: $DOMAIN_NAME
-    networks:
-      - dev
+    restart: unless-stopped
+    volumes:
+      - config:/var/jenkins_home
     ports:
       - 8080:8080
       - 5000:5000
-    volumes:
-      - $SHARED_FOLDER/Jenkins/Data:/var/jenkins_home
-    restart: unless-stopped
+    networks:
+      - dev
+
+volumes:
+  config:
 
 networks:
   dev:

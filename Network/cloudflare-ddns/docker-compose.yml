@@ -1,9 +1,7 @@
-version: "2.4"
-
 services:
   cloudflare-ddns:
-    container_name: cloudflare-ddns-$APPLICATION_NAME_EXPOSED
     image: oznu/cloudflare-ddns:$CLOUDFLARE_DDNS_VERSION
+    container_name: cloudflare-ddns-$APPLICATION_NAME_EXPOSED
     restart: unless-stopped
     environment:
       API_KEY: $CLOUDFLARE_DDNS_API_KEY

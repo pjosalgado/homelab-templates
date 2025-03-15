@@ -1,17 +1,18 @@
-version: "3"
-
 services:
   filebrowser:
     image: filebrowser/filebrowser:$FILE_BROWSER_VERSION
     container_name: filebrowser
-    hostname: filebrowser-$MACHINE_HOST_NAME
+    hostname: filebrowser
     domainname: $DOMAIN_NAME
-    user: $USER_PUID:$USER_PGID
-    ports:
-      - 8080:80
-    volumes:
-      - $SHARED_FOLDER/FileBrowser/database.db:/database.db
-      - $SHARED_FOLDER:/srv
     restart: unless-stopped
+    user: $USER_PUID:$USER_PGID
+    volumes:
+      - config/database.db:/database.db
+      - $SHARED_FOLDER:/srv
+    ports:
+      - 80:80
     security_opt:
       - no-new-privileges:true
+
+volumes:
+  config:
