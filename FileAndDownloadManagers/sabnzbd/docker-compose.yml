@@ -1,0 +1,21 @@
+services:
+  sabnzbd:
+    image: linuxserver/sabnzbd:$SABNZBD_VERSION
+    container_name: sabnzbd
+    hostname: sabnzbd
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    environment:
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
+      - TZ=America/Sao_Paulo
+    volumes:
+      - config:/config
+      - $SHARED_FOLDER/Downloads/Usenet:/downloads
+      - $SHARED_FOLDER/Downloads/Usenet/Incomplete:/incomplete-downloads
+    ports:
+      - 8080:8080
+      - 9090:9090
+
+volumes:
+  config:

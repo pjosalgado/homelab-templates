@@ -1,0 +1,19 @@
+services:
+  jackett:
+    image: linuxserver/jackett:$JACKETT_VERSION
+    container_name: jackett
+    hostname: jackett
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    environment:
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
+      - TZ=America/Sao_Paulo
+    volumes:
+      - config:/config
+      - $SHARED_FOLDER/Downloads/Torrents:/downloads
+    ports:
+      - 9117:9117
+
+volumes:
+  config:

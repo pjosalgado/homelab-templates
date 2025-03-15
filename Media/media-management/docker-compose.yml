@@ -1,0 +1,124 @@
+services:
+  bazarr:
+    image: linuxserver/bazarr:$BAZARR_VERSION
+    container_name: bazarr
+    hostname: bazarr
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    environment:
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
+      - TZ=America/Sao_Paulo
+    volumes:
+      - bazarr-config:/config
+      - $SHARED_FOLDER/Media/Movies:/movies
+      - $SHARED_FOLDER/Media/TvShows:/tv
+    ports:
+      - 6767:6767
+
+  radarr:
+    image: linuxserver/radarr:$RADARR_VERSION
+    container_name: radarr
+    hostname: radarr
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    environment:
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
+      - TZ=America/Sao_Paulo
+    volumes:
+      - radarr-config:/config
+      - $SHARED_FOLDER/Media/Movies:/movies
+      - $SHARED_FOLDER/Downloads/Torrents:/downloads
+    ports:
+      - 7878:7878
+
+  sonarr:
+    image: linuxserver/sonarr:$SONARR_VERSION
+    container_name: sonarr
+    hostname: sonarr
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    environment:
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
+      - TZ=America/Sao_Paulo
+    volumes:
+      - sonarr-config:/config
+      - $SHARED_FOLDER/Media/TvShows:/tv
+      - $SHARED_FOLDER/Downloads/Torrents:/downloads
+    ports:
+      - 8989:8989
+
+  lidarr:
+    image: linuxserver/lidarr:$LIDARR_VERSION
+    container_name: lidarr
+    hostname: lidarr
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    environment:
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
+      - TZ=America/Sao_Paulo
+    volumes:
+      - lidarr-config:/config
+      - $SHARED_FOLDER/Media/Music:/music
+      - $SHARED_FOLDER/Downloads/Torrents:/downloads
+    ports:
+      - 8686:8686
+
+  # overseerr:
+  #   image: hotio/overseerr:$OVERSEERR_VERSION
+  #   container_name: overseerr
+  #   hostname: overseerr
+  #   domainname: $DOMAIN_NAME
+  #   restart: unless-stopped
+  #   environment:
+  #     - PUID=$USER_PUID
+  #     - PGID=$USER_PGID
+  #     - TZ=America/Sao_Paulo
+  #   volumes:
+  #     - overseerr-config:/config
+  #   ports:
+  #     - 5055:5055
+
+  # requestrr:
+  #   image: linuxserver/requestrr:$REQUESTRR_VERSION
+  #   container_name: requestrr
+  #   hostname: requestrr
+  #   domainname: $DOMAIN_NAME
+  #   restart: unless-stopped
+  #   environment:
+  #     - PUID=$USER_PUID
+  #     - PGID=$USER_PGID
+  #     - TZ=America/Sao_Paulo
+  #   volumes:
+  #     - requestrr-config:/config
+  #   ports:
+  #     - 4545:4545
+
+  # organizr:
+  #   image: organizr/organizr:$ORGANIZR_VERSION
+  #   container_name: organizr
+  #   hostname: organizr
+  #   domainname: $DOMAIN_NAME
+  #   restart: unless-stopped
+  #   environment:
+  #     - PUID=$USER_PUID
+  #     - PGID=$USER_PGID
+  #     - TZ=America/Sao_Paulo
+  #     - branch=v2-master
+  #     - fpm=true
+  #   volumes:
+  #     - organizr-config:/config
+  #   ports:
+  #     - 80:80
+
+volumes:
+  bazarr-config:
+  radarr-config:
+  sonarr-config:
+  lidarr-config:
+  # overseerr-config:
+  # requestrr-config:
+  # organizr-config:
