@@ -1,0 +1,23 @@
+services:
+  syncthing:
+    image: linuxserver/syncthing:$SYNCTHING_VERSION
+    container_name: syncthing
+    hostname: syncthing
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    network_mode: bridge
+    environment:
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
+      - TZ=America/Sao_Paulo
+    ports:
+      - 8384:8384/tcp
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
+    volumes:
+      - config:/config
+      - $SHARED_FOLDER:/data
+
+volumes:
+  config:

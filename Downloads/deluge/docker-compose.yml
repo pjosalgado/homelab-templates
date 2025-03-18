@@ -1,0 +1,23 @@
+services:
+  deluge:
+    image: linuxserver/deluge:$DELUGE_VERSION
+    container_name: deluge
+    hostname: deluge
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    network_mode: bridge
+    environment:
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
+      - TZ=America/Sao_Paulo
+      - UMASK_SET=022
+      - DELUGE_LOGLEVEL=error
+    ports:
+      - 8112:8112
+      - 58846:58846
+    volumes:
+      - config:/config
+      - $SHARED_FOLDER/Downloads/Torrents:/downloads
+
+volumes:
+  config:

@@ -1,0 +1,53 @@
+services:
+  romm:
+    image: rommapp/romm:$ROMM_VERSION
+    container_name: romm
+    hostname: romm
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    network_mode: bridge
+    environment:
+      - DB_HOST=mariadb-romm
+      - DB_USER=$MARIADB_ROMM_USER
+      - DB_PASSWD=$MARIADB_ROMM_PASSWORD
+      - DB_NAME=romm
+      - ROMM_AUTH_SECRET_KEY=$ROMM_AUTH_SECRET_KEY
+      - STEAMGRIDDB_API_KEY=$ROMM_STEAMGRIDDB_API_KEY
+      - IGDB_CLIENT_ID=$ROMM_IGDB_CLIENT_ID
+      - IGDB_CLIENT_SECRET=$ROMM_IGDB_CLIENT_SECRET
+    volumes:
+      - romm-config:/romm/config
+      - romm-redis:/redis-data
+      - $SHARED_FOLDER/Gaming/ROMs:/romm/library
+      - $SHARED_FOLDER/Gaming/RomM/Assets:/romm/assets
+      - $SHARED_FOLDER/Gaming/RomM/Resources:/romm/resources
+    ports:
+      - 8080:8080
+    depends_on:
+      - mariadb-romm
+    links:
+      - mariadb-romm
+
+  mariadb-romm:
+    image: linuxserver/mariadb:$MARIADB_ROMM_VERSION
+    container_name: mariadb-romm
+    hostname: mariadb-romm
+    restart: unless-stopped
+    network_mode: bridge
+    environment:
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
+      - TZ=America/Sao_Paulo
+      - MYSQL_ROOT_PASSWORD=$MARIADB_ROMM_ROOT_PASSWORD
+      - MYSQL_USER=$MARIADB_ROMM_USER
+      - MYSQL_PASSWORD=$MARIADB_ROMM_PASSWORD
+      - MYSQL_DATABASE=romm
+      - REMOTE_SQL=
+    volumes:
+      - $SHARED_FOLDER/Databases/RomM:/config
+    ports:
+      - 3306:3306
+
+volumes:
+  romm-config:
+  romm-redis:

@@ -1,0 +1,19 @@
+services:
+  prowlarr:
+    image: linuxserver/prowlarr:$PROWLARR_VERSION
+    container_name: prowlarr
+    hostname: prowlarr
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    network_mode: bridge
+    environment:
+      - PUID=$USER_PUID
+      - PGID=$USER_PGID
+      - TZ=America/Sao_Paulo
+    ports:
+      - 9696:9696
+    volumes:
+      - config:/config
+
+volumes:
+  config:

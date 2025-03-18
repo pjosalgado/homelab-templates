@@ -5,10 +5,31 @@ services:
     hostname: uptime-kuma
     domainname: $DOMAIN_NAME
     restart: unless-stopped
+    network_mode: bridge
     volumes:
       - config:/app/data
     ports:
       - 3001:3001
+
+  uptime-mate:
+    image: schech1/uptime-buddy-api:$UPTIME_MATE_VERSION
+    container_name: uptime-mate
+    hostname: uptime-mate
+    restart: unless-stopped
+    network_mode: bridge
+    environment:
+      - UPTIME_KUMA_URL=http://uptime-kuma:3001
+      - EXTERNAL_URL=https://uptime-kuma.$DOMAIN_NAME
+      - USERNAME=$UPTIME_KUMA_USERNAME
+      - PASSWORD=$UPTIME_KUMA_PASSWORD
+      - MFA=true
+      - TOKEN=$UPTIME_KUMA_TOKEN
+    ports:
+      - 5005:5005
+    depends_on:
+      - uptime-kuma
+    links:
+      - uptime-kuma
 
 volumes:
   config:

@@ -1,0 +1,45 @@
+services:
+  docker-registry-ui:
+    image: joxit/docker-registry-ui:$REGISTRY_UI_VERSION
+    container_name: registry-ui
+    hostname: registry-ui
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    network_mode: bridge
+    environment:
+      - SINGLE_REGISTRY=true
+      - REGISTRY_TITLE=registry.$DOMAIN_NAME
+      - DELETE_IMAGES=true
+      - SHOW_CONTENT_DIGEST=true
+      - NGINX_PROXY_PASS_URL=http://registry:5000
+      - SHOW_CATALOG_NB_TAGS=true
+      - CATALOG_MIN_BRANCHES=1
+      - CATALOG_MAX_BRANCHES=1
+      - TAGLIST_PAGE_SIZE=50
+      - REGISTRY_SECURED=false
+      - CATALOG_ELEMENTS_LIMIT=1000
+    ports:
+      - 80:80
+    depends_on:
+      - registry
+    links:
+      - registry
+
+  registry:
+    image: registry:$REGISTRY_VERSION
+    container_name: registry
+    hostname: registry
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    network_mode: bridge
+    environment:
+      - REGISTRY_HTTP_HEADERS_Access-Control-Origin=[https://registry.$DOMAIN_NAME]
+      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=[HEAD,GET,OPTIONS,DELETE]
+      - REGISTRY_HTTP_HEADERS_Access-Control-Credentials=[true]
+      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=[Authorization,Accept,Cache-Control]
+      - REGISTRY_HTTP_HEADERS_Access-Control-Expose-Headers=[Docker-Content-Digest]
+      - REGISTRY_STORAGE_DELETE_ENABLED=true
+    volumes:
+      - $SHARED_FOLDER/Registry:/var/lib/registry
+    ports:
+      - 5000:5000

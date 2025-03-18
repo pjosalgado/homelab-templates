@@ -1,0 +1,15 @@
+services:
+  beszel:
+    image: henrygd/beszel:$BESZEL_VERSION
+    container_name: beszel
+    hostname: beszel
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    network_mode: bridge
+    volumes:
+      - config:/beszel_data
+    ports:
+      - 8090:8090
+
+volumes:
+  config:
