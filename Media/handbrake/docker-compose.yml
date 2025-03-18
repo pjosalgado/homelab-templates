@@ -1,0 +1,21 @@
+services:
+  handbrake:
+    image: jlesage/handbrake:$HANDBRAKE_VERSION
+    container_name: handbrake
+    hostname: handbrake
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    # environment:
+    #   - AUTOMATED_CONVERSION=1
+    volumes:
+      - config:/config
+      - storage:/storage
+      - $SHARED_FOLDER/Ripping/Handbrake/ToEdit:/input
+      - $SHARED_FOLDER/Ripping/Handbrake/AutoWatch:/watch
+      - $SHARED_FOLDER/Ripping/Handbrake/Edited:/output
+    ports:
+      - 5800:5800
+
+volumes:
+  config:
+  storage:

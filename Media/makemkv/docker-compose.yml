@@ -1,0 +1,23 @@
+services:
+  makemkv:
+    image: jlesage/makemkv:$MAKEMKV_VERSION
+    container_name: makemkv
+    hostname: makemkv
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    # environment:
+    #   - AUTO_DISC_RIPPER=1
+    #   - AUTO_DISC_RIPPER_EJECT=1
+    volumes:
+      - config:/config
+      - storage:/storage
+      - $SHARED_FOLDER/Ripping/MakeMKV:/output
+    devices:
+      - /dev/sr0
+      - /dev/sg1
+    ports:
+      - 5800:5800
+
+volumes:
+  config:
+  storage:

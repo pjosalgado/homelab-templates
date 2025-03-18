@@ -1,0 +1,9 @@
+services:
+  it-tools:
+    image: ghcr.io/corentinth/it-tools:$IT_TOOLS_VERSION
+    container_name: it-tools
+    hostname: it-tools
+    domainname: $DOMAIN_NAME
+    restart: unless-stopped
+    ports:
+      - 80:80
