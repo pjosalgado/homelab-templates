@@ -14,7 +14,7 @@ services:
       - $SHARED_FOLDER/Ripping/Handbrake/AutoWatch:/watch
       - $SHARED_FOLDER/Ripping/Handbrake/Edited:/output
     ports:
-      - 5800:5800
+      - "5800:5800"
 
 volumes:
   config:

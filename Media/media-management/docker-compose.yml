@@ -14,7 +14,7 @@ services:
       - $SHARED_FOLDER/Media/Movies:/movies
       - $SHARED_FOLDER/Media/TvShows:/tv
     ports:
-      - 6767:6767
+      - "6767:6767"
 
   radarr:
     image: linuxserver/radarr:$RADARR_VERSION
@@ -31,7 +31,7 @@ services:
       - $SHARED_FOLDER/Media/Movies:/movies
       - $SHARED_FOLDER/Downloads/Torrents:/downloads
     ports:
-      - 7878:7878
+      - "7878:7878"
 
   sonarr:
     image: linuxserver/sonarr:$SONARR_VERSION
@@ -48,7 +48,7 @@ services:
       - $SHARED_FOLDER/Media/TvShows:/tv
       - $SHARED_FOLDER/Downloads/Torrents:/downloads
     ports:
-      - 8989:8989
+      - "8989:8989"
 
   lidarr:
     image: linuxserver/lidarr:$LIDARR_VERSION
@@ -65,7 +65,7 @@ services:
       - $SHARED_FOLDER/Media/Music:/music
       - $SHARED_FOLDER/Downloads/Torrents:/downloads
     ports:
-      - 8686:8686
+      - "8686:8686"
 
   # overseerr:
   #   image: hotio/overseerr:$OVERSEERR_VERSION
@@ -80,7 +80,7 @@ services:
   #   volumes:
   #     - overseerr-config:/config
   #   ports:
-  #     - 5055:5055
+  #     - "5055:5055"
 
   # requestrr:
   #   image: linuxserver/requestrr:$REQUESTRR_VERSION
@@ -95,7 +95,7 @@ services:
   #   volumes:
   #     - requestrr-config:/config
   #   ports:
-  #     - 4545:4545
+  #     - "4545:4545"
 
   # organizr:
   #   image: organizr/organizr:$ORGANIZR_VERSION
@@ -112,7 +112,7 @@ services:
   #   volumes:
   #     - organizr-config:/config
   #   ports:
-  #     - 80:80
+  #     - "80:80"
 
 volumes:
   bazarr-config:

@@ -10,7 +10,7 @@ services:
       - config/database.db:/database.db
       - $SHARED_FOLDER:/srv
     ports:
-      - 80:80
+      - "80:80"
     security_opt:
       - no-new-privileges:true
 

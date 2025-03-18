@@ -12,9 +12,9 @@ services:
       - config:/etc/gitlab
       - data:/var/opt/gitlab
     ports:
-      - 80:80
-      - 443:443
-      - 22:22
+      - "80:80"
+      - "443:443"
+      - "22:22"
     networks:
       - dev
 

@@ -16,7 +16,7 @@ services:
       - OPENVPN_PASSWORD=$VPN_PASSWORD
       - OPENVPN_CONFIG=$VPN_SERVERS_COMMA_SEPARATED
     ports:
-      - 9091:9091
+      - "9091:9091"
     volumes:
       - config:/config
       - $SHARED_FOLDER/Downloads/Torrents:/data

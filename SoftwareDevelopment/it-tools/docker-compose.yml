@@ -6,4 +6,4 @@ services:
     domainname: $DOMAIN_NAME
     restart: unless-stopped
     ports:
-      - 80:80
+      - "80:80"

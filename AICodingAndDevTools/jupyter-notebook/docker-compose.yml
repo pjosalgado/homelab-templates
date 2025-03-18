@@ -9,4 +9,4 @@ services:
     volumes:
       - $SHARED_FOLDER/Notebooks:/notebooks
     ports:
-      - 8888:8888
+      - "8888:8888"

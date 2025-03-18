@@ -22,7 +22,7 @@ services:
       - $SHARED_FOLDER/Gaming/RomM/Assets:/romm/assets
       - $SHARED_FOLDER/Gaming/RomM/Resources:/romm/resources
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       - mariadb-romm
     links:
@@ -45,8 +45,6 @@ services:
       - REMOTE_SQL=
     volumes:
       - $SHARED_FOLDER/Databases/RomM:/config
-    ports:
-      - 3306:3306
 
 volumes:
   romm-config:

@@ -16,7 +16,7 @@ services:
       - /dev/sr0
       - /dev/sg1
     ports:
-      - 5800:5800
+      - "5800:5800"
 
 volumes:
   config:

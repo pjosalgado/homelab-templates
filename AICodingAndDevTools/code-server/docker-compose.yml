@@ -16,7 +16,7 @@ services:
       - config:/config
       - $SHARED_FOLDER/Code:/code
     ports:
-      - 8443:8443
+      - "8443:8443"
     networks:
       - code-server
 

@@ -29,7 +29,7 @@ services:
   #   volumes:
   #     - tautulli-config:/config
   #   ports:
-  #     - 8181:8181
+  #     - "8181:8181"
 
   jellyfin:
     image: linuxserver/jellyfin:$JELLYFIN_VERSION
@@ -47,10 +47,10 @@ services:
       - $SHARED_FOLDER/Media:/media
       - /opt/vc/lib:/opt/vc/lib
     ports:
-      - 8096:8096
-      - 8920:8920
-      - 7359:7359/udp
-      - 1900:1900/udp
+      - "8096:8096"
+      - "8920:8920"
+      - "7359:7359/udp"
+      - "1900:1900/udp"
     devices:
       - /dev/vchiq:/dev/vchiq
       - /dev/video10:/dev/video10

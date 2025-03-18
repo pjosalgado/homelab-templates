@@ -11,7 +11,7 @@ services:
       - PGID=$USER_PGID
       - TZ=America/Sao_Paulo
     ports:
-      - 9696:9696
+      - "9696:9696"
     volumes:
       - config:/config
 

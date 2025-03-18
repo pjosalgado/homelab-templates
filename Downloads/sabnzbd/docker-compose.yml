@@ -14,8 +14,8 @@ services:
       - $SHARED_FOLDER/Downloads/Usenet:/downloads
       - $SHARED_FOLDER/Downloads/Usenet/Incomplete:/incomplete-downloads
     ports:
-      - 8080:8080
-      - 9090:9090
+      - "8080:8080"
+      - "9090:9090"
 
 volumes:
   config:

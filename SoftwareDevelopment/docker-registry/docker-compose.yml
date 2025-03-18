@@ -19,7 +19,7 @@ services:
       - REGISTRY_SECURED=false
       - CATALOG_ELEMENTS_LIMIT=1000
     ports:
-      - 80:80
+      - "80:80"
     depends_on:
       - registry
     links:
@@ -42,4 +42,4 @@ services:
     volumes:
       - $SHARED_FOLDER/Registry:/var/lib/registry
     ports:
-      - 5000:5000
+      - "5000:5000"

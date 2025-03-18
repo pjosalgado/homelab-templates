@@ -14,9 +14,9 @@ services:
   #     - config:/config
   #     - $SHARED_FOLDER/Downloads/Torrents:/downloads
   #   ports:
-  #     - 6881:6881
-  #     - 6881:6881/udp
-  #     - 5000:5000
+  #     - "6881:6881"
+  #     - "6881:6881/udp"
+  #     - "5000:5000"
 
   qbittorrent-vpn:
     image: markusmcnugen/qbittorrentvpn:latest
@@ -36,9 +36,9 @@ services:
       - VPN_USERNAME=$VPN_USERNAME
       - VPN_PASSWORD=$VPN_PASSWORD
     ports:
-      - 8080:8080
-      - 8999:8999
-      - 8999:8999/udp
+      - "8080:8080"
+      - "8999:8999"
+      - "8999:8999/udp"
     volumes:
       - vpn-config:/config
       - $SHARED_FOLDER/Downloads/Torrents:/downloads

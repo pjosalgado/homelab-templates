@@ -9,7 +9,7 @@ services:
     volumes:
       - config:/app/data
     ports:
-      - 3001:3001
+      - "3001:3001"
 
   uptime-mate:
     image: schech1/uptime-buddy-api:$UPTIME_MATE_VERSION
@@ -25,7 +25,7 @@ services:
       - MFA=true
       - TOKEN=$UPTIME_KUMA_TOKEN
     ports:
-      - 5005:5005
+      - "5005:5005"
     depends_on:
       - uptime-kuma
     links:

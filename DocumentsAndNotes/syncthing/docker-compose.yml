@@ -11,10 +11,10 @@ services:
       - PGID=$USER_PGID
       - TZ=America/Sao_Paulo
     ports:
-      - 8384:8384/tcp
-      - 22000:22000/tcp
-      - 22000:22000/udp
-      - 21027:21027/udp
+      - "8384:8384/tcp"
+      - "22000:22000/tcp"
+      - "22000:22000/udp"
+      - "21027:21027/udp"
     volumes:
       - config:/config
       - $SHARED_FOLDER:/data

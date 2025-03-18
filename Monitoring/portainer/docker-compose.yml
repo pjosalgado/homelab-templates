@@ -6,7 +6,7 @@ services:
     domainname: $DOMAIN_NAME
     restart: unless-stopped
     ports:
-      - 9000:9000
+      - "9000:9000"
     volumes:
       - config:/data
       - /var/run/docker.sock:/var/run/docker.sock

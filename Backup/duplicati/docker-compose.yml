@@ -15,7 +15,7 @@ services:
       - $PATH_1_TO_BACKUP:/source1
       - $PATH_2_TO_BACKUP:/source2
     ports:
-      - 8200:8200
+      - "8200:8200"
 
 volumes:
   config:

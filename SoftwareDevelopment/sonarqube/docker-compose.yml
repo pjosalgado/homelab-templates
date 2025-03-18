@@ -13,7 +13,7 @@ services:
       - sonarqube-config:/opt/sonarqube/data
       - sonarqube-extensions:/opt/sonarqube/extensions
     ports:
-      - 9000:9000
+      - "9000:9000"
     depends_on:
       - postgres
     networks:
